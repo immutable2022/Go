@@ -63,7 +63,7 @@ public class Go {
                 counter = 0;
             }
 
-            var randomInt = getRandomInt()/25;
+            var randomInt = getRandomInt(0)/25;
             try {
                 Thread.sleep(randomInt);
             } catch (Exception ex){
@@ -76,7 +76,6 @@ public class Go {
 
                 new Thread(() -> {
                     String[] commands1 = {"curl", "-X", "GET", "-m", "1", "http://" +getRandomAddress(list)};
-                    //String[] commands = {"curl", "-X", "GET", "-m", "1", "https://www.google.com"};
                     //System.out.println(commands1[5]);
                     Process process = null;
                     InputStream isss = null;
@@ -98,8 +97,7 @@ public class Go {
             } else {
                 new Thread(() -> {
                     String[] commands2 = {"curl", "-X", "GET", "-m", "1", "https://" + getRandomAddress(list)};
-                    //String[] commands = {"curl", "-X", "GET", "-m", "1", "https://www.google.com"};
-                    //System.out.println(commands2[5]);
+                    System.out.println(commands2[5]);
                     Process process = null;
                     InputStream isss = null;
                     try {
@@ -176,24 +174,16 @@ public class Go {
         }
     }
 
-    static int getRandomInt(){
+    static int getRandomInt(Integer listSize){
         Random r = new Random();
         int low = 1;
         int high = 1000;
+        if (listSize > 0)
+            high = listSize;
         return r.nextInt(high-low) + low;
     }
 
     static String getRandomAddress(List<String> addressList){
-        return addressList.get(getRandomInt());
+        return addressList.get(getRandomInt(addressList.size()));
     }
 }
-
-//GARBAGE:
-//                try {
-//                    URL myURL = new URL("http://" + getRandomAddress(list));
-//                    URLConnection myCon = myURL.openConnection();
-//                    myCon.setConnectTimeout(1000);
-//                    myCon.connect();
-//                } catch (Exception ex){
-//
-//                }

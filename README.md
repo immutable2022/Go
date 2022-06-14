@@ -1,6 +1,6 @@
-# Go
+ # Requester
 A multi request tool
 
-usage: java -jar Go.jar
+usage: java -jar Requester.jar
 
 logs will be created in the same folder

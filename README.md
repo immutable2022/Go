@@ -14,8 +14,11 @@ second parameter:
     
 a text file with the sequence of URLs that should be included.
     The URLs should be one per line. For example:
+    
     www.someurl.com
+    
     www.anotherurl.com
+    
     www.onemoreurl.com
 
 A dummy file is located under src/main/resources/address.txt

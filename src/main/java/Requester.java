@@ -13,7 +13,7 @@ public class Requester {
 
     public static void main(String[] args) throws IOException {
 
-        java.util.logging.Logger logger =  java.util.logging.Logger.getLogger("Go.class");
+        java.util.logging.Logger logger =  java.util.logging.Logger.getLogger("Requester.class");
 
         FileHandler fileHandler = new FileHandler(System.currentTimeMillis()+ ".log");
         SimpleFormatter simpleFormatter = new SimpleFormatter();
@@ -54,7 +54,8 @@ public class Requester {
             counter++;
             if (time + 200000 < System.currentTimeMillis()){
 
-                //System.out.println("Printed # of requests/second: " + counter/200 );
+                if (extendedOutput)
+                    System.out.println("Printed # of requests/second: " + counter/200 );
 
                 logger.info("Printed # of requests/second: " + counter/200 + "\n");
 
@@ -78,19 +79,23 @@ public class Requester {
             } catch (Exception ex){
 
             }
-
-            //System.out.println(randomInt);
-
             Boolean finalExtendedOutput = extendedOutput;
-            if (randomInt >19){
+
+            if (finalExtendedOutput)
+                System.out.println(randomInt);
+
                 new Thread(() -> {
-                    String[] commands1 = {"curl", "-X", "GET", "-m", "1", "http://" +getRandomAddress(list)};
+                    String[] commands = {"curl", "-X", "GET", "-m", "1", "https://" +getRandomAddress(list)};
+
+                    if (randomInt > 19)
+                        commands = new String[]{"curl", "-X", "GET", "-m", "1", "http://" + getRandomAddress(list)};
+
                     if (finalExtendedOutput)
-                        System.out.println(commands1[5]);
+                        System.out.println(commands[5]);
                     Process process = null;
                     InputStream isss = null;
                     try {
-                        process = Runtime.getRuntime().exec(commands1);
+                        process = Runtime.getRuntime().exec(commands);
                         isss = process.getInputStream();
                         isss.read();
                     } catch (IOException e) {
@@ -104,29 +109,6 @@ public class Requester {
                         process.destroy();
                     }
                 }).start();
-            } else {
-                new Thread(() -> {
-                    String[] commands2 = {"curl", "-X", "GET", "-m", "1", "https://" + getRandomAddress(list)};
-                    if (finalExtendedOutput)
-                        System.out.println(commands2[5]);
-                    Process process = null;
-                    InputStream isss = null;
-                    try {
-                        process = Runtime.getRuntime().exec(commands2);
-                        isss = process.getInputStream();
-                        process.destroy();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } finally {
-                        try {
-                            isss.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        process.destroy();
-                    }
-                }).start();
-            }
         }
     }
 

@@ -21,7 +21,7 @@ a text file with the sequence of URLs that should be included.
     
     www.onemoreurl.com
 
-A dummy file is located under src/main/resources/address.txt
+An example file is located under resources: https://github.com/immutable2022/Go/blob/master/src/main/resources/address.txt
 
 log files will be created in the same folder where the jar is run.
 It will contain the IP address of your machine. Check the log to be sure
